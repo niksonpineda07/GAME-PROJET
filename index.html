@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>Nuestra Historia</title>
+  <title>Un regalo especial</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -57,11 +57,11 @@
     .welcome-box {
       max-width: 390px;
       width: 100%;
-      background: rgba(255, 255, 255, .86);
+      background: rgba(255, 255, 255, .90);
       backdrop-filter: blur(14px);
       border: 1px solid var(--border);
       border-radius: 30px;
-      padding: 36px 26px;
+      padding: 34px 24px;
       box-shadow: 0 24px 60px rgba(45, 36, 36, .11);
     }
     .welcome-badge {
@@ -73,7 +73,7 @@
       background: var(--accent-soft);
       padding: 6px 14px;
       border-radius: 999px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       font-weight: 600;
     }
     .welcome-box h1 {
@@ -83,10 +83,70 @@
       font-weight: 600;
     }
     .welcome-box p {
-      margin: 0 0 26px;
+      margin: 0 0 22px;
       font-size: 14.5px;
       color: var(--muted);
     }
+    .welcome-lock-box {
+      display: none;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+    .welcome-lock-box.show { display: block; }
+    .welcome-hint {
+      font-size: 12.5px;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      padding: 8px 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      text-align: center;
+      display: none;
+    }
+    .welcome-hint.show { display: block; }
+    .pass-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .pass-input-wrap input {
+      width: 100%;
+      padding: 13px 46px 13px 16px;
+      border-radius: 14px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      font-size: 15px;
+      color: var(--text);
+      text-align: center;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .pass-input-wrap input:focus { border-color: var(--accent); }
+    .toggle-eye-btn {
+      position: absolute;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .welcome-pass-error {
+      color: #C84B4B;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 8px;
+      display: none;
+    }
+    .welcome-pass-error.show { display: block; }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-7px); }
+      40%, 80% { transform: translateX(7px); }
+    }
+    .shake { animation: shake .35s ease; }
 
     /* ---------- Floating Top Controls ---------- */
     .top-bar-controls {
@@ -94,7 +154,7 @@
       top: 14px;
       left: 14px;
       right: 14px;
-      z-index: 500;
+      z-index: 920;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -116,7 +176,9 @@
       color: var(--text);
       box-shadow: 0 6px 18px rgba(45, 36, 36, .08);
       cursor: pointer;
+      transition: opacity .25s ease, visibility .25s ease;
     }
+    .music-pill.hidden-on-lock { opacity: 0; visibility: hidden; pointer-events: none; }
     .eq {
       display: inline-flex;
       align-items: flex-end;
@@ -197,6 +259,27 @@
       margin: 0 0 20px;
     }
 
+    /* ---------- Cooldown Banner ---------- */
+    .cooldown-banner {
+      display: none;
+      background: #FFF6F7;
+      border: 1px solid #EAC7CD;
+      color: var(--accent-dark);
+      border-radius: 15px;
+      padding: 12px 14px;
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 16px;
+      line-height: 1.45;
+    }
+    .cooldown-banner.show { display: block; }
+    .cooldown-banner .cd-timer {
+      display: inline-block;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent);
+    }
+
     /* ---------- Buttons ---------- */
     .btn {
       display: inline-flex;
@@ -213,7 +296,7 @@
       text-decoration: none;
     }
     .btn:active { transform: scale(.97); }
-    .btn:disabled { opacity: .65; cursor: wait; transform: none; }
+    .btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
     .btn-primary {
       background: var(--accent);
       color: #fff;
@@ -231,6 +314,14 @@
       padding: 9px 16px;
       font-size: 13px;
       box-shadow: 0 6px 14px rgba(182, 94, 107, .24);
+      white-space: nowrap;
+    }
+    .btn-locked {
+      background: #EFE8E2;
+      color: #8C7E7E;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      font-size: 12px;
       white-space: nowrap;
     }
     .btn-sm { padding: 8px 14px; font-size: 12.5px; }
@@ -984,6 +1075,7 @@
       padding: 14px;
       margin-bottom: 14px;
     }
+    .admin-box h3 { margin: 0 0 12px; font-size: 15.5px; }
     .admin-item-row {
       display: flex;
       gap: 8px;
@@ -1036,6 +1128,8 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity .25s, transform .25s;
+      max-width: calc(100% - 32px);
+      text-align: center;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -1056,19 +1150,29 @@
   <!-- Toast -->
   <div id="toast" class="toast"></div>
 
-  <!-- Welcome Overlay (Sin nombres de prueba mientras carga Firebase) -->
+  <!-- Welcome Overlay (Sin nombres de prueba y con bloqueo por contraseña opcional) -->
   <div id="welcomeOverlay" class="welcome-overlay">
-    <div class="welcome-box">
+    <div class="welcome-box" id="welcomeBox">
       <div class="welcome-badge" id="welcomeBadge">Un detalle para ti</div>
       <h1 id="welcomeTitle">Un regalo especial</h1>
       <p id="welcomeSubtitle">Preparando cada detalle con cariño...</p>
+
+      <div id="welcomeLockBox" class="welcome-lock-box">
+        <div id="welcomeHintText" class="welcome-hint"></div>
+        <div class="pass-input-wrap">
+          <input type="password" id="welcomePassInput" placeholder="Ingresa la clave secreta" autocomplete="off" />
+          <button type="button" class="toggle-eye-btn" id="toggleWelcomePassBtn" aria-label="Mostrar clave">👁</button>
+        </div>
+        <div id="welcomePassError" class="welcome-pass-error">Clave incorrecta, intenta de nuevo</div>
+      </div>
+
       <button class="btn btn-primary btn-full" id="enterGiftBtn" disabled>Preparando tu regalo...</button>
     </div>
   </div>
 
   <!-- Top Controls -->
   <div class="top-bar-controls">
-    <button id="musicPill" class="music-pill" title="Música de fondo">
+    <button id="musicPill" class="music-pill hidden-on-lock" title="Música de fondo">
       <span class="eq"><span></span><span></span><span></span></span>
       <span id="musicLabel">Música</span>
     </button>
@@ -1156,6 +1260,8 @@
 
       <!-- 6. NUESTRA LISTA & VALES -->
       <section id="sec-vales" class="section">
+        <div id="cooldownBannerVales" class="cooldown-banner"></div>
+
         <div class="card" style="margin-bottom:22px;">
           <div class="eyebrow">Cosas que quiero hacer contigo</div>
           <h2 class="section-title">Nuestra lista</h2>
@@ -1177,6 +1283,8 @@
           <div class="eyebrow">Para ti</div>
           <h2 class="section-title">La ruleta decide nuestra cita</h2>
           <p class="section-sub">Gírala y responde con el corazón.</p>
+
+          <div id="cooldownBannerRuleta" class="cooldown-banner"></div>
 
           <div class="wheel-stage">
             <div class="wheel-pointer"></div>
@@ -1365,12 +1473,50 @@
               <input id="inWelcomeSub" />
             </div>
           </div>
+
+          <!-- CONTRASEÑA DE ACCESO AL REGALO -->
+          <div class="admin-box">
+            <h3>Contraseña de acceso al regalo (opcional)</h3>
+            <div class="row-2">
+              <div class="field">
+                <label>Clave para entrar (vacío = libre)</label>
+                <input id="inAccessPassword" placeholder="Ej: 1408 o tequiero" />
+              </div>
+              <div class="field">
+                <label>Pista visible en la entrada (opcional)</label>
+                <input id="inAccessHint" placeholder="Ej: Nuestra fecha especial" />
+              </div>
+            </div>
+            <label style="display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500;">
+              <input type="checkbox" id="inAccessRemember" style="width:auto;" />
+              Recordar acceso en el celular de ella después de desbloquear
+            </label>
+          </div>
+
+          <!-- TIEMPO DE ESPERA ENTRE RECOMPENSAS -->
+          <div class="admin-box">
+            <h3>Tiempo de espera entre recompensas</h3>
+            <div class="field">
+              <label>Espera tras reclamar vale, deseo o ruleta</label>
+              <select id="inCooldownHours">
+                <option value="0">Sin límite de espera</option>
+                <option value="12">12 horas de espera</option>
+                <option value="24">24 horas de espera</option>
+                <option value="48">48 horas de espera</option>
+                <option value="72">72 horas de espera</option>
+              </select>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+              <small id="adminCooldownStatus" style="color:var(--muted);">Estado actual: disponible</small>
+              <button class="btn btn-outline btn-sm" type="button" id="resetCooldownBtn">Reiniciar espera ahora</button>
+            </div>
+          </div>
         </div>
 
         <!-- TAB 2: PORTADA & MÚSICA -->
         <div id="tab-media" class="admin-pane">
           <div class="admin-box">
-            <h3 style="margin:0 0 12px; font-size:16px;">Fotos de la página principal</h3>
+            <h3>Fotos de la página principal</h3>
 
             <div class="field">
               <label>Foto de portada</label>
@@ -1413,7 +1559,7 @@
           </div>
 
           <div class="admin-box">
-            <h3 style="margin:0 0 10px; font-size:16px;">Música de fondo al entrar</h3>
+            <h3>Música de fondo al entrar</h3>
             <div class="field">
               <label>Ruta o URL directa de audio (ej: /cancion.mp3)</label>
               <input id="inAudioUrl" placeholder="/cancion.mp3 o https://.../cancion.mp3" />
@@ -1502,12 +1648,12 @@
         <!-- TAB 6: LISTA & VALES -->
         <div id="tab-vales" class="admin-pane">
           <div class="admin-box">
-            <h3 style="margin:0 0 10px; font-size:16px;">Nuestra lista de deseos</h3>
+            <h3>Nuestra lista de deseos</h3>
             <div id="adminWishList"></div>
             <button class="btn btn-outline btn-sm" type="button" id="addWishBtn">+ Agregar deseo</button>
           </div>
           <div class="admin-box">
-            <h3 style="margin:0 0 10px; font-size:16px;">Vales de amor</h3>
+            <h3>Vales de amor</h3>
             <div id="adminVoucherList"></div>
             <button class="btn btn-outline btn-sm" type="button" id="addVoucherBtn">+ Agregar vale</button>
           </div>
@@ -1528,7 +1674,7 @@
         <!-- TAB 8: ACTIVIDAD, QR & CONFIG -->
         <div id="tab-actividad" class="admin-pane">
           <div class="admin-box">
-            <h3 style="margin:0 0 10px; font-size:16px;">Enlace y Código QR exclusivo</h3>
+            <h3>Enlace y Código QR exclusivo</h3>
             <div class="field">
               <label>Enlace directo de este regalo</label>
               <div style="display:flex; gap:8px;">
@@ -1544,14 +1690,14 @@
 
           <div class="admin-box">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-              <h3 style="margin:0; font-size:16px;">Historial de actividad</h3>
+              <h3 style="margin:0;">Historial de actividad</h3>
               <button class="btn btn-outline btn-sm" type="button" id="clearActivityBtn">Limpiar</button>
             </div>
             <div id="adminActivityList" style="font-size:13px;"></div>
           </div>
 
           <div class="admin-box">
-            <h3 style="margin:0 0 10px; font-size:16px;">Seguridad</h3>
+            <h3>Seguridad del administrador</h3>
             <div class="field">
               <label>Cambiar contraseña de administrador</label>
               <div style="display:flex; gap:8px;">
@@ -1612,6 +1758,13 @@
       startDate: "2023-08-14T19:00",
       heroCaption: "Cada día contigo vale la pena",
       welcomeSub: "Guardé nuestros momentos favoritos, lugares especiales y sorpresas en un solo lugar.",
+      accessPassword: "",
+      accessHint: "",
+      accessRemember: true,
+      claimCooldownHours: 24,
+      lastClaimAt: 0,
+      lastClaimItemId: "",
+      lastClaimLabel: "",
       youtubeUrl: "",
       heroPhoto: "",
       letterPhoto: "",
@@ -1662,6 +1815,8 @@
     let allGiftSlugs = ["nuestra-historia"];
     let adminPassword = localStorage.getItem("gift_admin_pass") || "admin2026";
     let savedMainScrollY = 0;
+    let isGiftUnlocked = false;
+    let lastCooldownActive = false;
 
     // Map & Wheel state
     let publicMap = null;
@@ -1690,7 +1845,7 @@
       t.textContent = msg;
       t.classList.add("show");
       clearTimeout(t._timer);
-      t._timer = setTimeout(() => t.classList.remove("show"), 2600);
+      t._timer = setTimeout(() => t.classList.remove("show"), 2800);
     }
     function getUrlSlug() {
       const params = new URLSearchParams(window.location.search);
@@ -1744,6 +1899,96 @@
       if (!url) return "";
       const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/);
       return m ? m[1] : "";
+    }
+
+    /* =====================================================================
+       SISTEMA DE ESPERA ENTRE RECOMPENSAS (COOLDOWN)
+       ===================================================================== */
+    function getCooldownState() {
+      const hours = Number(currentGift.claimCooldownHours || 0);
+      const lastAt = Number(currentGift.lastClaimAt || 0);
+      if (!hours || !lastAt) {
+        return { active: false, remainingMs: 0, itemId: "", label: "" };
+      }
+      const expiresAt = lastAt + hours * 3600 * 1000;
+      const remainingMs = expiresAt - Date.now();
+      return {
+        active: remainingMs > 0,
+        remainingMs: Math.max(0, remainingMs),
+        itemId: currentGift.lastClaimItemId || "",
+        label: currentGift.lastClaimLabel || ""
+      };
+    }
+
+    function formatRemaining(ms) {
+      const totalSec = Math.max(0, Math.ceil(ms / 1000));
+      const h = Math.floor(totalSec / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      const pad = n => String(n).padStart(2, "0");
+      return `${pad(h)}h ${pad(m)}m ${pad(s)}s`;
+    }
+
+    async function registerRewardClaim(itemId, label) {
+      const hours = Number(currentGift.claimCooldownHours || 0);
+      if (hours > 0) {
+        currentGift.lastClaimAt = Date.now();
+        currentGift.lastClaimItemId = itemId;
+        currentGift.lastClaimLabel = label;
+      }
+      await saveCurrentGift(true);
+      refreshCooldownViews();
+    }
+
+    function updateCooldownBanners() {
+      const cd = getCooldownState();
+      const banners = [$("cooldownBannerVales"), $("cooldownBannerRuleta")];
+      banners.forEach(b => {
+        if (!b) return;
+        if (cd.active) {
+          b.classList.add("show");
+          b.innerHTML = `⏳ Ya elegiste una recompensa${cd.label ? ` (<strong>${esc(cd.label)}</strong>)` : ""}. Podrás reclamar otra en <span class="cd-timer">${formatRemaining(cd.remainingMs)}</span>.`;
+        } else {
+          b.classList.remove("show");
+          b.innerHTML = "";
+        }
+      });
+
+      const adminStat = $("adminCooldownStatus");
+      if (adminStat) {
+        adminStat.textContent = cd.active
+          ? `Bloqueado (${formatRemaining(cd.remainingMs)} restantes)`
+          : "Estado actual: disponible para reclamar";
+      }
+    }
+
+    function refreshCooldownViews() {
+      const cd = getCooldownState();
+      lastCooldownActive = cd.active;
+      updateCooldownBanners();
+      renderWishlist();
+      renderVouchers();
+      syncRouletteCooldownUI();
+    }
+
+    function syncRouletteCooldownUI() {
+      const cd = getCooldownState();
+      const spinBtn = $("spinBtn");
+      if (!cd.active) {
+        spinBtn.disabled = false;
+        spinBtn.textContent = "Girar ruleta";
+        return;
+      }
+      spinBtn.disabled = true;
+      spinBtn.textContent = "Espera para girar de nuevo";
+
+      if (cd.itemId.startsWith("roulette:") && cd.label) {
+        lastWheelPrize = cd.label;
+        $("rouletteWinnerText").textContent = `¿${cd.label}?`;
+        $("rouletteResult").classList.add("show");
+        $("yesNoArena").style.display = "none";
+        $("acceptedBox").classList.add("show");
+      }
     }
 
     /* =====================================================================
@@ -1888,12 +2133,70 @@
     }
 
     /* =====================================================================
+       PANTALLA DE BIENVENIDA Y BLOQUEO POR CONTRASEÑA
+       ===================================================================== */
+    function needsEntryPassword() {
+      const pwd = (currentGift.accessPassword || "").trim();
+      if (!pwd) return false;
+      if (isGiftUnlocked) return false;
+      if (currentGift.accessRemember) {
+        const saved = localStorage.getItem("gift_unlocked_" + currentGift.slug);
+        if (saved && saved === pwd.toLowerCase()) {
+          isGiftUnlocked = true;
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function updateWelcomeScreen() {
+      const locked = needsEntryPassword();
+      const btn = $("enterGiftBtn");
+      const lockBox = $("welcomeLockBox");
+      const hintEl = $("welcomeHintText");
+
+      if (locked) {
+        document.title = "Un regalo especial";
+        $("welcomeBadge").textContent = "Acceso privado";
+        $("welcomeTitle").textContent = "Un regalo especial";
+        $("welcomeSubtitle").textContent = "Ingresa la clave secreta para abrir tu sorpresa.";
+        lockBox.classList.add("show");
+        if ((currentGift.accessHint || "").trim()) {
+          hintEl.textContent = "Pista: " + currentGift.accessHint.trim();
+          hintEl.classList.add("show");
+        } else {
+          hintEl.classList.remove("show");
+        }
+        btn.textContent = "Desbloquear y abrir ❤️";
+      } else {
+        document.title = currentGift.coupleNames || "Nuestra Historia";
+        $("welcomeBadge").textContent = "Un detalle para ti";
+        $("welcomeTitle").textContent = currentGift.coupleNames || "Un regalo especial";
+        $("welcomeSubtitle").textContent = currentGift.welcomeSub || "";
+        lockBox.classList.remove("show");
+        btn.textContent = "Abrir mi regalo ❤️";
+      }
+    }
+
+    $("toggleWelcomePassBtn").onclick = () => {
+      const inp = $("welcomePassInput");
+      inp.type = inp.type === "password" ? "text" : "password";
+    };
+
+    $("welcomePassInput").addEventListener("input", () => {
+      $("welcomePassError").classList.remove("show");
+    });
+
+    $("welcomePassInput").addEventListener("keydown", e => {
+      if (e.key === "Enter") $("enterGiftBtn").click();
+    });
+
+    /* =====================================================================
        RENDER PÚBLICO
        ===================================================================== */
     function renderAll() {
-      document.title = currentGift.coupleNames || "Nuestra Historia";
-      $("welcomeTitle").textContent = currentGift.coupleNames || "Un regalo especial";
-      $("welcomeSubtitle").textContent = currentGift.welcomeSub || "";
+      updateWelcomeScreen();
+
       $("heroNames").textContent = currentGift.coupleNames || "";
       $("heroCaption").textContent = currentGift.heroCaption || "";
 
@@ -1959,44 +2262,56 @@
 
       renderAlbumPreviewAndPage();
       renderPublicMap();
-      renderWishlist();
-      renderVouchers();
       drawWheel();
+      refreshCooldownViews();
       setupAudioSource();
       updateCounter();
 
-      $("mainView").classList.add("ready");
+      if (!needsEntryPassword()) {
+        $("mainView").classList.add("ready");
+      }
     }
 
-    /* ---------- Contador en vivo ---------- */
+    /* ---------- Contador en vivo + Tick de espera ---------- */
     function updateCounter() {
       const start = new Date(currentGift.startDate || "2023-08-14T19:00");
       const now = new Date();
       if (isNaN(start.getTime()) || now < start) {
         $("counterMain").textContent = "Comienza nuestra historia";
         $("counterHms").textContent = "00h : 00m : 00s";
-        return;
-      }
-      let years = now.getFullYear() - start.getFullYear();
-      let months = now.getMonth() - start.getMonth();
-      let days = now.getDate() - start.getDate();
-      if (days < 0) {
-        months--;
-        const prevMonthDays = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-        days += prevMonthDays;
-      }
-      if (months < 0) { years--; months += 12; }
-      const diffSec = Math.floor((now - start) / 1000);
-      const h = String(Math.floor((diffSec % 86400) / 3600)).padStart(2, "0");
-      const m = String(Math.floor((diffSec % 3600) / 60)).padStart(2, "0");
-      const s = String(diffSec % 60).padStart(2, "0");
+      } else {
+        let years = now.getFullYear() - start.getFullYear();
+        let months = now.getMonth() - start.getMonth();
+        let days = now.getDate() - start.getDate();
+        if (days < 0) {
+          months--;
+          const prevMonthDays = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+          days += prevMonthDays;
+        }
+        if (months < 0) { years--; months += 12; }
+        const diffSec = Math.floor((now - start) / 1000);
+        const h = String(Math.floor((diffSec % 86400) / 3600)).padStart(2, "0");
+        const m = String(Math.floor((diffSec % 3600) / 60)).padStart(2, "0");
+        const s = String(diffSec % 60).padStart(2, "0");
 
-      const parts = [];
-      if (years > 0) parts.push(`${years} ${years === 1 ? "año" : "años"}`);
-      if (months > 0 || years > 0) parts.push(`${months} ${months === 1 ? "mes" : "meses"}`);
-      parts.push(`${days} ${days === 1 ? "día" : "días"}`);
-      $("counterMain").textContent = parts.length > 1 ? parts.slice(0, -1).join(", ") + " y " + parts.slice(-1) : parts[0];
-      $("counterHms").textContent = `${h}h : ${m}m : ${s}s`;
+        const parts = [];
+        if (years > 0) parts.push(`${years} ${years === 1 ? "año" : "años"}`);
+        if (months > 0 || years > 0) parts.push(`${months} ${months === 1 ? "mes" : "meses"}`);
+        parts.push(`${days} ${days === 1 ? "día" : "días"}`);
+        $("counterMain").textContent = parts.length > 1 ? parts.slice(0, -1).join(", ") + " y " + parts.slice(-1) : parts[0];
+        $("counterHms").textContent = `${h}h : ${m}m : ${s}s`;
+      }
+
+      // Tick del contador de recompensas
+      const cd = getCooldownState();
+      if (cd.active) {
+        const text = formatRemaining(cd.remainingMs);
+        document.querySelectorAll(".cd-timer").forEach(el => { el.textContent = text; });
+        const adminStat = $("adminCooldownStatus");
+        if (adminStat) adminStat.textContent = `Bloqueado (${text} restantes)`;
+      } else if (lastCooldownActive) {
+        refreshCooldownViews();
+      }
     }
     setInterval(updateCounter, 1000);
 
@@ -2159,11 +2474,16 @@
       }
     }
 
-    /* ---------- Lista de Deseos ---------- */
+    /* ---------- Lista de Deseos (con control de espera) ---------- */
     function renderWishlist() {
       const wrap = $("wishList");
       wrap.innerHTML = "";
+      const cd = getCooldownState();
+
       (currentGift.wishlist || []).forEach(item => {
+        const thisKey = "wish:" + item.id;
+        const blockedByOther = cd.active && cd.itemId !== thisKey;
+
         const row = document.createElement("div");
         row.className = "wish-item" + (item.done ? " done" : "");
         row.innerHTML = `
@@ -2171,8 +2491,13 @@
             <div class="wish-check">${item.done ? "✓" : ""}</div>
             <div class="wish-text">${esc(item.text)}</div>
           </div>
-          ${item.done ? `<button class="btn btn-claim">Reclamar ❤️</button>` : ""}
+          ${item.done
+            ? (blockedByOther
+                ? `<button class="btn btn-locked">⏳ En espera</button>`
+                : `<button class="btn btn-claim">Reclamar ❤️</button>`)
+            : ""}
         `;
+
         row.querySelector(".wish-left").onclick = async e => {
           item.done = !item.done;
           if (item.done) {
@@ -2183,9 +2508,18 @@
           }
           renderWishlist();
         };
-        const claimBtn = row.querySelector(".btn-claim");
-        if (claimBtn) {
-          claimBtn.onclick = async () => {
+
+        const btn = row.querySelector("button");
+        if (btn) {
+          btn.onclick = async () => {
+            const freshCd = getCooldownState();
+            if (freshCd.active && freshCd.itemId !== thisKey) {
+              showToast(`Podrás reclamar otra recompensa en ${formatRemaining(freshCd.remainingMs)}`);
+              return;
+            }
+            if (!freshCd.active) {
+              await registerRewardClaim(thisKey, item.text);
+            }
             await logActivity(`Reclamó deseo por WhatsApp: "${item.text}"`);
             openWhatsApp(`¡Hola amor! Acabo de elegir este deseo de nuestra lista: "${item.text}" ❤️`);
           };
@@ -2194,34 +2528,54 @@
       });
     }
 
-    /* ---------- Vales de Amor ---------- */
+    /* ---------- Vales de Amor (con control de espera) ---------- */
     function renderVouchers() {
       const wrap = $("voucherList");
       wrap.innerHTML = "";
+      const cd = getCooldownState();
+
       (currentGift.vouchers || []).forEach(v => {
+        const thisKey = "voucher:" + v.id;
+        const canClaimThis = !cd.active || cd.itemId === thisKey;
+
         const card = document.createElement("div");
         card.className = "voucher-card" + (v.redeemed ? " redeemed" : "");
+
+        let actionHtml = "";
+        if (v.redeemed) {
+          actionHtml = `<button class="btn btn-claim">Reclamar ❤️</button>`;
+        } else if (cd.active) {
+          actionHtml = `<button class="btn btn-locked">⏳ En espera</button>`;
+        } else {
+          actionHtml = `<button class="btn btn-outline btn-sm">Canjear</button>`;
+        }
+
         card.innerHTML = `
           <div class="voucher-info">
             <div class="voucher-tag">Vale</div>
             <div class="voucher-title">${esc(v.title)}</div>
             ${v.redeemed ? `<div class="voucher-status">Canjeado ${esc(v.redeemedAt || "")}</div>` : ""}
           </div>
-          ${v.redeemed
-            ? `<button class="btn btn-claim">Reclamar ❤️</button>`
-            : `<button class="btn btn-outline btn-sm">Canjear</button>`}
+          ${actionHtml}
         `;
+
+        const btn = card.querySelector("button");
         if (!v.redeemed) {
-          card.querySelector("button").onclick = async e => {
+          btn.onclick = async e => {
+            const freshCd = getCooldownState();
+            if (freshCd.active) {
+              showToast(`Podrás canjear otro vale en ${formatRemaining(freshCd.remainingMs)}`);
+              return;
+            }
             v.redeemed = true;
             v.redeemedAt = new Date().toLocaleDateString("es-VE", { day: "2-digit", month: "short" });
             burstHearts(e.clientX || window.innerWidth / 2, e.clientY || 300);
             await logActivity(`Canjeó el vale: "${v.title}"`);
-            renderVouchers();
-            showToast("¡Vale canjeado! Ahora puedes reclamarlo ❤️");
+            await registerRewardClaim(thisKey, v.title);
+            showToast("¡Vale canjeado! Ahora toca Reclamar ❤️");
           };
         } else {
-          card.querySelector(".btn-claim").onclick = async () => {
+          btn.onclick = async () => {
             await logActivity(`Reclamó vale por WhatsApp: "${v.title}"`);
             openWhatsApp(`¡Hola amor! Quiero reclamar mi vale: "${v.title}" ❤️`);
           };
@@ -2230,7 +2584,7 @@
       });
     }
 
-    /* ---------- Ruleta de Citas ---------- */
+    /* ---------- Ruleta de Citas (con control de espera) ---------- */
     function drawWheel() {
       const canvas = $("wheelCanvas");
       const ctx = canvas.getContext("2d");
@@ -2276,6 +2630,12 @@
 
     $("spinBtn").onclick = () => {
       if (isSpinning) return;
+      const cd = getCooldownState();
+      if (cd.active) {
+        showToast(`Podrás reclamar otra recompensa en ${formatRemaining(cd.remainingMs)}`);
+        return;
+      }
+
       const opts = (currentGift.wheelOptions && currentGift.wheelOptions.length >= 2) ? currentGift.wheelOptions : DEFAULT_GIFT.wheelOptions;
       isSpinning = true;
       $("rouletteResult").classList.remove("show");
@@ -2335,15 +2695,22 @@
     });
 
     $("yesBtn").onclick = async e => {
+      const cd = getCooldownState();
+      if (cd.active) {
+        showToast(`Podrás reclamar otra recompensa en ${formatRemaining(cd.remainingMs)}`);
+        return;
+      }
       burstHearts(e.clientX || window.innerWidth / 2, e.clientY || 300);
       $("yesNoArena").style.display = "none";
       $("acceptedBox").classList.add("show");
       await logActivity(`Aceptó la cita de la ruleta: "${lastWheelPrize}"`);
+      await registerRewardClaim("roulette:" + lastWheelPrize, lastWheelPrize);
     };
 
     $("claimRouletteBtn").onclick = async () => {
-      await logActivity(`Reclamó cita por WhatsApp: "${lastWheelPrize}"`);
-      openWhatsApp(`¡Hola amor! La ruleta eligió nuestra próxima cita y dije que SÍ: "${lastWheelPrize}" ❤️`);
+      const prize = lastWheelPrize || currentGift.lastClaimLabel || "nuestra cita";
+      await logActivity(`Reclamó cita por WhatsApp: "${prize}"`);
+      openWhatsApp(`¡Hola amor! La ruleta eligió nuestra próxima cita y dije que SÍ: "${prize}" ❤️`);
     };
 
     /* ---------- Música de Fondo ---------- */
@@ -2424,7 +2791,28 @@
     $("musicPill").onclick = () => toggleMusic();
     $("enterGiftBtn").onclick = () => {
       if ($("enterGiftBtn").disabled) return;
+
+      if (needsEntryPassword()) {
+        const expected = (currentGift.accessPassword || "").trim().toLowerCase();
+        const entered = ($("welcomePassInput").value || "").trim().toLowerCase();
+        if (entered !== expected) {
+          $("welcomePassError").classList.add("show");
+          const box = $("welcomeBox");
+          box.classList.remove("shake");
+          void box.offsetWidth;
+          box.classList.add("shake");
+          return;
+        }
+        isGiftUnlocked = true;
+        if (currentGift.accessRemember) {
+          localStorage.setItem("gift_unlocked_" + currentGift.slug, expected);
+        }
+        document.title = currentGift.coupleNames || "Nuestra Historia";
+      }
+
+      $("mainView").classList.add("ready");
       $("welcomeOverlay").classList.add("hidden");
+      $("musicPill").classList.remove("hidden-on-lock");
       toggleMusic(true);
       if (publicMap) setTimeout(() => publicMap.invalidateSize(), 250);
     };
@@ -2507,6 +2895,12 @@
       $("inFooterText").value = currentGift.footerText || "";
       $("inWelcomeSub").value = currentGift.welcomeSub || "";
 
+      $("inAccessPassword").value = currentGift.accessPassword || "";
+      $("inAccessHint").value = currentGift.accessHint || "";
+      $("inAccessRemember").checked = currentGift.accessRemember !== false;
+      $("inCooldownHours").value = String(currentGift.claimCooldownHours ?? 24);
+      updateCooldownBanners();
+
       $("prevHeroPhoto").src = currentGift.heroPhoto || "";
       $("inHeroPhotoUrl").value = (currentGift.heroPhoto || "").startsWith("http") ? currentGift.heroPhoto : "";
       $("prevLetterPhoto").src = currentGift.letterPhoto || "";
@@ -2532,6 +2926,16 @@
       renderAdminWheel();
       renderQrAndActivity();
     }
+
+    $("resetCooldownBtn").onclick = async () => {
+      currentGift.lastClaimAt = 0;
+      currentGift.lastClaimItemId = "";
+      currentGift.lastClaimLabel = "";
+      await saveCurrentGift(true);
+      $("rouletteResult").classList.remove("show");
+      refreshCooldownViews();
+      showToast("Tiempo de espera reiniciado ✓");
+    };
 
     $("giftSelector").onchange = async e => {
       await loadGiftBySlug(e.target.value);
@@ -2917,6 +3321,11 @@
       currentGift.footerText = $("inFooterText").value.trim();
       currentGift.welcomeSub = $("inWelcomeSub").value.trim();
 
+      currentGift.accessPassword = $("inAccessPassword").value.trim();
+      currentGift.accessHint = $("inAccessHint").value.trim();
+      currentGift.accessRemember = $("inAccessRemember").checked;
+      currentGift.claimCooldownHours = Number($("inCooldownHours").value || 0);
+
       if ($("inHeroPhotoUrl").value.trim()) currentGift.heroPhoto = $("inHeroPhotoUrl").value.trim();
       if ($("inLetterPhotoUrl").value.trim()) currentGift.letterPhoto = $("inLetterPhotoUrl").value.trim();
       if ($("inClosingPhotoUrl").value.trim()) currentGift.closingPhoto = $("inClosingPhotoUrl").value.trim();
@@ -2946,7 +3355,7 @@
         await loadGiftBySlug(getUrlSlug() || "nuestra-historia");
       } finally {
         btn.disabled = false;
-        btn.textContent = "Abrir mi regalo ❤️";
+        updateWelcomeScreen();
       }
     })();
   </script>
